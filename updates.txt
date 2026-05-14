@@ -1,0 +1,25 @@
+Project Update (Week of 2026-05-14)
+
+- Goal: Build Phase 1 MVP for AI Project Manager Copilot (single-LLM “Project Analyst” that outputs strict JSON: summary, tasks, risks, followups).
+
+Progress
+- Added initial CLI script `pm_copilot.py` that reads project update text and returns structured JSON.
+- Targeted providers:
+  - Ollama (local) as default.
+  - Groq (optional) via OpenAI-compatible endpoint.
+- Enforced JSON-only output requirements with a contract and basic validation.
+
+Current Status
+- Phase 1 is in progress. The CLI works end-to-end but needs a small amount of UX hardening and better sample inputs.
+- No LangGraph orchestration yet (planned Phase 3).
+
+Blockers / Questions
+- Need to confirm which Ollama model we will standardize on for local runs (llama3.1 vs mistral vs phi-3).
+- Need agreement on the exact task/risk/followup fields to lock as the v1 contract (title/description are required, others optional).
+
+Next Steps
+- Create a sample `updates.txt` and verify the analyzer produces correct JSON.
+- Add tests later (not in Phase 1), plus introduce multi-agent separation in Phase 2.
+
+Notes
+- Human-in-the-loop: outputs are suggestions for a PM to review, not autonomous actions.
