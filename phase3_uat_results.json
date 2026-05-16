@@ -1,0 +1,106 @@
+{
+  "startup_pivot": {
+    "status": "PASS",
+    "title": "Startup Pivot Decision",
+    "schema_checks": {
+      "has_summary": true,
+      "has_tasks": true,
+      "has_risks": true,
+      "has_followups": true,
+      "summary_not_empty": true,
+      "tasks_items_valid": true,
+      "risks_items_valid": true,
+      "followups_items_valid": true
+    },
+    "expectation_checks": {
+      "summary_has_pivot": true,
+      "summary_has_b2c": true,
+      "tasks_count_sufficient": true,
+      "tasks_has_any_legal|contract": true,
+      "tasks_has_any_client|customer|notification": true,
+      "tasks_has_any_contractor|hire|procurement": true,
+      "tasks_has_any_redesign|design|kickoff": true,
+      "risks_count_sufficient": true,
+      "risks_has_any_churn|attrition": true,
+      "risks_has_any_morale": true,
+      "risks_has_any_timeline|schedule": true,
+      "risks_has_any_budget|cost": true,
+      "keyword_ratio_sufficient": true
+    },
+    "output": {
+      "summary_length": 296,
+      "tasks_count": 6,
+      "risks_count": 7,
+      "followups_count": 5
+    }
+  },
+  "release_postmortem": {
+    "status": "PASS",
+    "title": "Production Incident & Post-Mortem",
+    "schema_checks": {
+      "has_summary": true,
+      "has_tasks": true,
+      "has_risks": true,
+      "has_followups": true,
+      "summary_not_empty": true,
+      "tasks_items_valid": true,
+      "risks_items_valid": true,
+      "followups_items_valid": true
+    },
+    "expectation_checks": {
+      "summary_has_outage": true,
+      "summary_has_database": true,
+      "summary_has_replication": true,
+      "tasks_count_sufficient": true,
+      "tasks_has_any_alert|threshold|monitor": true,
+      "tasks_has_any_rollback": true,
+      "tasks_has_any_dashboard|on-call|runbook": true,
+      "tasks_has_any_backup": true,
+      "tasks_has_any_testing|staging|load test": true,
+      "risks_count_sufficient": true,
+      "risks_has_any_migration": true,
+      "risks_has_any_recurr|again": false,
+      "keyword_ratio_sufficient": true
+    },
+    "output": {
+      "summary_length": 780,
+      "tasks_count": 11,
+      "risks_count": 5,
+      "followups_count": 5
+    }
+  },
+  "sprint_planning": {
+    "status": "PASS",
+    "title": "Sprint Planning & Commitment",
+    "schema_checks": {
+      "has_summary": true,
+      "has_tasks": true,
+      "has_risks": true,
+      "has_followups": true,
+      "summary_not_empty": true,
+      "tasks_items_valid": true,
+      "risks_items_valid": true,
+      "followups_items_valid": true
+    },
+    "expectation_checks": {
+      "summary_has_sprint": true,
+      "summary_has_47": true,
+      "tasks_count_sufficient": true,
+      "tasks_has_any_rate|429|limiting": true,
+      "tasks_has_any_dashboard|performance|optimiz|index": true,
+      "tasks_has_any_bug|fix": true,
+      "tasks_has_any_dark|theme|mode": true,
+      "risks_count_sufficient": true,
+      "risks_has_any_legacy|client": true,
+      "risks_has_any_qa|capacity": true,
+      "risks_has_any_sick|leave|absence": true,
+      "keyword_ratio_sufficient": true
+    },
+    "output": {
+      "summary_length": 368,
+      "tasks_count": 6,
+      "risks_count": 5,
+      "followups_count": 5
+    }
+  }
+}

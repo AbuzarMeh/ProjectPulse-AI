@@ -1,25 +1,34 @@
-Project Update (Week of 2026-05-14)
+Project Update (Week of 2026-05-16)
 
-- Goal: Build Phase 1 MVP for AI Project Manager Copilot (single-LLM “Project Analyst” that outputs strict JSON: summary, tasks, risks, followups).
+Goal
+- Complete Phase 3 of the AI Project Manager Copilot: a human-in-the-loop PM assistant that converts raw project updates into strict JSON with summary, tasks, risks, and followups.
 
 Progress
-- Added initial CLI script `pm_copilot.py` that reads project update text and returns structured JSON.
-- Targeted providers:
-  - Ollama (local) as default.
-  - Groq (optional) via OpenAI-compatible endpoint.
-- Enforced JSON-only output requirements with a contract and basic validation.
+- Refactored the original script into a package under `src/pm_copilot`.
+- Added CLI commands for all phases:
+  - `analyze` for Phase 1 single-agent analysis.
+  - `analyze-v2` for Phase 2 multi-agent analysis.
+  - `analyze-v3` for Phase 3 LangGraph orchestration.
+- Implemented LangGraph stateful orchestration with centralized workflow state, trace metadata, warnings, errors, and deterministic fallback extraction.
+- Added provider support for Ollama and Groq/OpenAI-compatible APIs.
+- Added schema normalization and validation for the structured output contract.
+- Added validation and UAT scripts for Phase 3 readiness.
 
 Current Status
-- Phase 1 is in progress. The CLI works end-to-end but needs a small amount of UX hardening and better sample inputs.
-- No LangGraph orchestration yet (planned Phase 3).
+- Phase 3 is implemented and locally validated.
+- Deployment readiness, integration, and UAT result files show PASS.
+- Local smoke checks cover imports, schema sanity, and Python compilation.
 
-Blockers / Questions
-- Need to confirm which Ollama model we will standardize on for local runs (llama3.1 vs mistral vs phi-3).
-- Need agreement on the exact task/risk/followup fields to lock as the v1 contract (title/description are required, others optional).
+Risks / Watch Items
+- Groq validation requires `GROQ_API_KEY`.
+- Ollama validation requires a running local Ollama server and an installed model.
+- Ollama response times can be much slower than Groq depending on the local model and hardware.
+- PowerShell may emit a local profile execution-policy warning; this is environment noise, not an application failure.
 
 Next Steps
-- Create a sample `updates.txt` and verify the analyzer produces correct JSON.
-- Add tests later (not in Phase 1), plus introduce multi-agent separation in Phase 2.
+- Keep README and status notes aligned as Phase 4 work begins.
+- Decide whether Phase 4 should prioritize persistence, API service hardening, monitoring/logging, or PM workflow integrations.
+- Add broader automated tests around LangGraph routing, fallback behavior, and API persistence if those paths become production-critical.
 
 Notes
-- Human-in-the-loop: outputs are suggestions for a PM to review, not autonomous actions.
+- The copilot remains human-in-the-loop: outputs are structured recommendations for PM review, not autonomous project actions.

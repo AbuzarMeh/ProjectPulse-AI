@@ -1,0 +1,57 @@
+{
+  "basic": {
+    "phase3_groq": {
+      "status": "PASS",
+      "provider": "groq",
+      "elapsed_s": 3.391777992248535,
+      "error": null
+    },
+    "phase3_ollama": {
+      "status": "PASS",
+      "provider": "ollama",
+      "elapsed_s": 124.44865369796753,
+      "error": null
+    },
+    "phase2_ref": {
+      "status": "PASS",
+      "provider": null,
+      "elapsed_s": 2.629596710205078,
+      "error": null
+    },
+    "comparison": {
+      "status": "PASS",
+      "checks": {
+        "summary_is_string": true,
+        "tasks_is_list": true,
+        "risks_is_list": true,
+        "followups_is_list": true
+      },
+      "v2_summary_len": 425,
+      "v3_summary_len": 426,
+      "v2_tasks_count": 5,
+      "v3_tasks_count": 5
+    }
+  },
+  "empty_tasks": {
+    "status": "PASS",
+    "provider": "groq",
+    "result": {
+      "summary": "This week the team focused on planning and design work, with strategic discussions and no concrete tasks assigned, resulting in alignment on the architecture direction, setting the stage for future project development.",
+      "tasks": [],
+      "risks": [],
+      "followups": []
+    },
+    "elapsed_s": 0.9142770767211914
+  },
+  "complex": {
+    "status": "PASS",
+    "provider": "groq",
+    "result": {
+      "summary": "The AI Project Manager Copilot has completed phases 1-3, including single-agent MVP, multi-agent separation, and stateful orchestration. Current work includes integration testing, output comparison, production deployment preparation, and user acceptance testing. Risks include LLM model availability, API rate limits, performance degradation, and state persistence. Follow-ups are needed to confirm production deployment, set up monitoring and logging, plan Phase 4, and gather user feedback on output quality. Overall, the project is progressing with key milestones achieved and upcoming tasks focused on testing, deployment, and user feedback.",
+      "tasks": [],
+      "risks": [],
+      "followups": []
+    },
+    "elapsed_s": 2.7423477172851562
+  }
+}
