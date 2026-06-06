@@ -1,5 +1,56 @@
-﻿keys/
-__pycache__/
-*.pyc
-.ipynb_checkpoints/
+# Secrets and local configuration
 .env
+.env.*
+!.env.example
+keys/
+
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local databases and runtime state
+*.db
+*.sqlite
+*.sqlite3
+pm_copilot.sqlite3
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# Frontend dependencies/build output, if the UI grows later
+node_modules/
+.next/
+out/
+coverage/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Project-local demos and generated media
+loom_vid.mp4
+demo_updates.txt

@@ -110,4 +110,13 @@ def run_json_agent(
                 error=last_error,
             )
 
-    raise RuntimeError(last_error + ("" if not bad_output else "\nLast model output:\n" + bad_output[:2000]))
+    if not bad_output:
+        raise RuntimeError(last_error)
+
+    snippet = bad_output.strip().replace("\r\n", "\n")
+    snippet = " ".join(snippet.splitlines())
+    max_chars = 600
+    if len(snippet) > max_chars:
+        snippet = snippet[:max_chars] + "…"
+
+    raise RuntimeError(last_error + "\nLast model output (truncated):\n" + snippet)

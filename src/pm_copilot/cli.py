@@ -13,6 +13,7 @@ from typing import Any, List, Optional
 
 from pm_copilot.agents.phase1 import analyze
 from pm_copilot.agents.phase2 import analyze_v2
+from pm_copilot.integrations import normalize_file_text
 from pm_copilot.llm import (
     list_ollama_models,
     list_openai_compat_models,
@@ -20,6 +21,7 @@ from pm_copilot.llm import (
 )
 from pm_copilot.orchestration.langgraph_flow import orchestrate
 from pm_copilot.schema import CONTRACT_SCHEMA
+from pm_copilot.store_sqlite import SQLiteRunStore
 
 
 def _read_text_from_input(path: Optional[str]) -> str:
@@ -219,6 +221,47 @@ def cmd_schema(_: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_ingest_file(args: argparse.Namespace) -> int:
+    try:
+        text = _read_text_from_input(args.input)
+    except FileNotFoundError:
+        cwd = os.getcwd()
+        sys.stderr.write(
+            "ERROR: Input file not found: "
+            + str(args.input)
+            + "\nCurrent working directory: "
+            + cwd
+            + "\n"
+        )
+        return 2
+
+    try:
+        normalized = normalize_file_text(text, file_name=args.input, project_key=args.project_key)
+    except Exception as e:
+        sys.stderr.write(f"ERROR: {e}\n")
+        return 2
+
+    db_path = os.environ.get("PM_COPILOT_DB_PATH", "pm_copilot.sqlite3")
+    store = SQLiteRunStore(db_path=db_path)
+    try:
+        update_id = store.save_update(
+            source=normalized.source,
+            text=normalized.text,
+            external_event_id=normalized.external_event_id,
+            project_key=normalized.project_key,
+            channel=normalized.channel,
+            user=normalized.user,
+            timestamp=normalized.timestamp,
+            raw=normalized.raw,
+        )
+    except Exception as e:
+        sys.stderr.write(f"ERROR: Persistence failed: {e}\n")
+        return 2
+
+    sys.stdout.write(update_id + "\n")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="pm_copilot",
@@ -261,6 +304,11 @@ def build_parser() -> argparse.ArgumentParser:
     pc.add_argument("--no-repair", action="store_true")
     pc.add_argument("--pretty", action="store_true")
     pc.set_defaults(func=cmd_analyze_v3)
+
+    pd = sub.add_parser("ingest-file", help="Persist a text file as a normalized update in SQLite")
+    pd.add_argument("--input", "-i", required=True, help="Path to a text file")
+    pd.add_argument("--project-key", help="Optional grouping key for longitudinal tracking")
+    pd.set_defaults(func=cmd_ingest_file)
 
     pm = sub.add_parser("ollama-models", help="List locally available Ollama models")
     pm.add_argument("--base-url")

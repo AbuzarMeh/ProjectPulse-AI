@@ -57,6 +57,27 @@ python .\pm_copilot.py analyze --provider groq --model "llama-3.3-70b-versatile"
 python .\pm_copilot.py schema
 ```
 
+## Web UI (recommended for demos)
+
+This repo includes a Streamlit frontend that runs Phase 3 orchestration and shows results + run history.
+
+Install dependencies:
+
+```powershell
+pip install -r requirements.txt
+```
+
+Run the UI:
+
+```powershell
+streamlit run .\ui\app.py
+```
+
+Notes:
+
+- For Groq, set `GROQ_API_KEY` first.
+- Runs are persisted to SQLite at `PM_COPILOT_DB_PATH` (default: `pm_copilot.sqlite3`).
+
 ## Providers
 
 ### Groq (API)

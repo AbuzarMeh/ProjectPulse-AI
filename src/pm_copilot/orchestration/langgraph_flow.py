@@ -16,6 +16,7 @@ import json
 import re
 import time
 import uuid
+import warnings
 from datetime import datetime, timezone
 from typing import Any, Dict, List, TypedDict
 
@@ -24,6 +25,17 @@ try:  # pragma: no cover
     from typing import Any as _Any
 except Exception:  # pragma: no cover
     pass
+
+try:  # Best-effort: keep demo/CLI output clean
+    from langchain_core._api.deprecation import LangChainPendingDeprecationWarning
+
+    warnings.filterwarnings("ignore", category=LangChainPendingDeprecationWarning)
+except Exception:
+    warnings.filterwarnings(
+        "ignore",
+        message=r"The default value of `allowed_objects` will change in a future version\..*",
+        category=Warning,
+    )
 
 from langgraph.graph import END, StateGraph
 
